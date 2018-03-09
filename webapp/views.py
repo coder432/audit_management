@@ -190,8 +190,7 @@ def get_questions(request,s_id):
 			f.seek(0)
 			json.dump(l,f)
 			print(l)
+			
 		return render(request,'webapp/success_question.html',context)
-
-
 
 
