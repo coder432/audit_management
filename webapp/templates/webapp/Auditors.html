@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+{% csrf_token %}
+
+<head>
+    {%load static%}
+
+<style type="text/css">
+    .wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RAMS</title>
+
+    <link rel="stylesheet" href="{% static 'webapp/css/product-list-vertical.css' %}">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+         <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+    {% if auditor_list %}
+    <ul class="product-list-vertical">
+
+         {% for auditor in auditor_list %}
+    
+        <li>
+
+          
+            <div class="product-details">
+              
+                <h2><a href="#"> employee id:{{auditor.emp_id}}</a></h2>
+
+              
+
+                <p class="product-description">
+                
+                    first name : {{auditor.f_name}}<br>
+                    last name  : {{auditor.l_name}}<br>
+                    email      : {{auditor.email}}
+
+                </p>
+
+                    <a href="{% url 'EditAuditor' auditor.emp_id %}"" class="btn btn-info" role="button">edit</a>
+
+
+                    <a href="{% url 'DeleteAuditor' auditor.emp_id %}" class="btn btn-info" role="button">delete</a>
+
+
+              
+                
+            </div>
+
+        </li>
+
+        {% endfor %}
+
+       
+
+    </ul>
+    <div class ="wrapper">
+        <a href="register" class="btn btn-info" role="button">Add Auditor</a>
+
+    </div>
+    {% else %}
+        <h1>NO AUDITORS REQISTERED YET</h1>
+    {%endif%}
+      
+
+</body>
+
+</html>

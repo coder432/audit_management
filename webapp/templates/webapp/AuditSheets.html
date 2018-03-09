@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+    .wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+ <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RAMS</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'webapp/css/product-list-small.css' %}">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+
+
+
+	<title>RAMS</title>
+</head>
+<body>
+<h1> audit sheets for audit_id {{audit_id}}</h1>
+
+
+ <ul class="product-list-small">
+
+    {% for sheet in sheet_list %}
+
+        <li>
+
+            <a href="#" class="product-photo">
+                <img src="{%static 'webapp/images/sheet.png'%}" height="105" alt="audit" />
+            </a>
+
+            <h2><a href="#"><b>{{sheet.sheet_name}}</b></a></h2>
+
+
+           
+            <a href="{% url 'questions' sheet.s_id %}" class="btn btn-info" role="button">open</a>
+            <a href="#" class="btn btn-info" role="button">edit</a>
+
+           
+
+        </li>
+
+    {% endfor %}
+
+     
+
+    </ul>
+
+
+ <div class ="wrapper">
+        <a href="{% url 'CreateSheet' audit_id %}" class="btn btn-info" role="button">Add sheet</a>
+
+    </div>
+</body>
+</html>

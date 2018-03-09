@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+    .wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RAMS</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'webapp/css/product-list-small.css' %}">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+    <ul class="product-list-small">
+
+    {% for audit in audit_list %}
+
+        <li>
+
+            <a href="#" class="product-photo">
+                <img src="{%static 'webapp/images/audit.png'%}" height="105" alt="audit" />
+            </a>
+
+            <h2><a href="#">{{audit.audit_name}}</a></h2>
+
+
+            <p class="product-description">{{audit.description}}.<br><b>audit_id {{audit.audit_id}}<b></p>
+
+            <a href=" {% url 'AuditSheets' audit.audit_id  %} " class="btn btn-info" role="button">open</a>
+            <a href="#" class="btn btn-info" role="button">edit</a>
+
+           
+
+        </li>
+
+    {% endfor %}
+
+     
+
+    </ul>
+
+     <div class ="wrapper">
+        <a href="CreateAudit" class="btn btn-info" role="button">Add Audit</a>
+
+    </div>
+
+
+</body>
+
+</html>
