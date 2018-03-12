@@ -23,6 +23,7 @@ urlpatterns = [
     path('get_file/<slug:audit_id>',views.get_file,name = 'get_file'),
     path('AuditFiles/<slug:audit_id>',views.AuditFiles,name = 'AuditFiles'),
     path('AuditDashboard/<slug:audit_id>',views.AuditDashboard,name = 'AuditDashboard'),
-    path('edit_auditor/<slug:audit_id>',views.edit_audit,name = 'edit_audit')
+    path('edit_auditor/<slug:audit_id>',views.edit_audit,name = 'edit_audit'),
+    path('AdminMenu',views.AdminMenu,name = 'AdminMenu')
     ]
     

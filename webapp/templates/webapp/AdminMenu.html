@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  {% load static %}
+  <title>RAMS</title>
+  
+  
+  
+      <link rel="stylesheet" href="{% static 'webapp/css/dash_style.css' %}">
+
+  
+</head>
+
+<body>
+  <h1>ADMIN MENU</h1>
+
+  <nav>
+  <ul>
+    <li><a class="social google" href="{% url 'AuditList'%}">View Audits</a></li>
+    <li><a class="social tumblr" href="{% url 'CreateAudit' %}">Create Audit</a></li>
+    <li><a class="social facebook" href="{% url 'register'%}">Register Auditor</a></li>
+    <li><a class="social github" href="{% url 'AuditorList' %}">View Auditors</a></li>
+    <!-- <li><a class="social scriptogram" href="#">Scriptogram</a></li>
+    <li><a class="social twitter" href="#">Twitter</a></li>
+    <li><a class="social instagram" href="#">Instagram</a></li>
+    <li><a class="social linkedin" href="#">LinkedIn</a></li> -->
+  </ul>
+</nav>
+  
+  
+
+</body>
+
+</html>

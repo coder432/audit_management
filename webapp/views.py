@@ -116,6 +116,9 @@ def AuditDashboard(request,audit_id):
 	return render(request,'webapp/AuditDashboard.html',context)
 
 
+def AdminMenu(request):
+	context = {}
+	return render(request,'webapp/AdminMenu.html',context)
 #######formshandles#############
 def get_auditor(request):
 	d = {}
