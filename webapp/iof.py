@@ -56,7 +56,7 @@ def read_sheet(aid):
 		 return k
 
 		for i in l:
-		 	if i['audit_id'] == aid:
+		 	if i['file_id'] == aid:
 		 		k.append(i)
 		return k
 
@@ -74,4 +74,25 @@ def read_questions(s_id):
 		 	if i['s_id'] == s_id:
 		 		k.append(i)
 		return k
+
+def read_file(aid):
+	l = []
+	k = []
+	with open("files.txt",'r') as f:
+		try:
+		 l = json.load(f)
+		except:
+		 return k
+
+		for i in l:
+		 	if i['audit_id'] == aid:
+		 		k.append(i)
+		return k
+def auditdetails(aid):
+	with open("audit.txt","r") as f:
+		l = json.load(f)
+		for i in l:
+			if i['audit_id'] == aid:
+				return i
+
 

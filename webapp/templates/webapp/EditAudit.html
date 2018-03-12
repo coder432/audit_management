@@ -30,11 +30,11 @@
 
 <body>
 
-<h1>{{message}}</h1>
+<h1>edit audit for {{audit_id}}</h1>
 
   <div class="container">
 
-    <form class="well form-horizontal" action="get_audit" method="post"  id="contact_form">
+    <form class="well form-horizontal" action="{% url 'edit_audit' audit_id %}" method="post"  id="contact_form">
      {% csrf_token %}
 <fieldset>
 
@@ -48,7 +48,7 @@
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-  <input  name="audit_name" placeholder="Audit Name" class="form-control"  type="text">
+  <input  name="audit_name" placeholder="Audit Name" class="form-control"  type="text" value="{{audit_name}}">
     </div>
   </div>
 </div>
@@ -59,7 +59,7 @@
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-  <input  name="audit_type" placeholder="Audit Type" class="form-control"  type="text">
+  <input  name="audit_type" placeholder="Audit Type" class="form-control"  type="text" value="{{audit_type}}">
     </div>
   </div>
 </div>
@@ -68,22 +68,14 @@
 
 <!-- Text input-->
       
-<div class="form-group">
-  <label class="col-md-4 control-label">Audit ID</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-  <input name="audit_id" placeholder="Audit ID" class="form-control" type="text">
-    </div>
-  </div>
-</div>
+
 
   <div class="form-group">
   <label class="col-md-4 control-label">Audit Description </label>
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-        	<textarea class="form-control" name="description" placeholder="Audit Description"></textarea>
+        	<textarea class="form-control" name="description" placeholder="Audit Description" >{{description}}</textarea>
   </div>
   </div>
 </div>
@@ -96,7 +88,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4">
-    <button type="submit" class="btn btn-warning" >Create <span class="glyphicon glyphicon-send"></span></button>
+    <button type="submit" class="btn btn-warning" >SAVE<span class="glyphicon glyphicon-send"></span></button>
   </div>
 </div>
 

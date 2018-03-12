@@ -30,20 +30,20 @@
 
   <div class="container">
 
-    <form class="well form-horizontal" action="{% url 'get_sheet' file_id %} " method="post"  id="contact_form">
+    <form class="well form-horizontal" action="{% url 'get_file' audit_id %} " method="post"  id="contact_form">
 <fieldset>
 {% csrf_token %}
 <!-- Form Name -->
-<legend>Create Audit Sheet for <b>{{file_id}}</b></legend>
+<legend>Create Audit file for <b>{{audit_id}}</b></legend>
 
 <!-- Text input-->
 
 <div class="form-group">
-  <label class="col-md-4 control-label">Sheet Name</label>  
+  <label class="col-md-4 control-label">File Name</label>  
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-  <input  name="sheet_name" placeholder="Sheet Name" class="form-control"  type="text">
+  <input  name="file_name" placeholder="File Name" class="form-control"  type="text">
     </div>
   </div>
 </div>

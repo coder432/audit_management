@@ -49,8 +49,7 @@
 
             <p class="product-description">{{audit.description}}.<br><b>audit_id {{audit.audit_id}}<b></p>
 
-            <a href=" {% url 'AuditSheets' audit.audit_id  %} " class="btn btn-info" role="button">open</a>
-            <a href="#" class="btn btn-info" role="button">edit</a>
+            <a href=" {% url 'AuditDashboard' audit.audit_id  %} " class="btn btn-info" role="button">open</a>
 
            
 

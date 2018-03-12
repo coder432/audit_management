@@ -36,7 +36,7 @@
 	<title>RAMS</title>
 </head>
 <body>
-<h1> audit sheets for audit_id {{audit_id}}</h1>
+<h1> audit sheets for file_id {{file_id}}</h1>
 
 
  <ul class="product-list-small">
@@ -53,8 +53,8 @@
 
 
            
-            <a href="{% url 'questions' sheet.s_id %}" class="btn btn-info" role="button">open</a>
-            <a href="#" class="btn btn-info" role="button">edit</a>
+            <a href="{% url 'questions' sheet.s_id %}" class="btn btn-info" role="button">edit</a>
+            <a href="#" class="btn btn-info" role="button">delete</a>
 
            
 
@@ -68,7 +68,7 @@
 
 
  <div class ="wrapper">
-        <a href="{% url 'CreateSheet' audit_id %}" class="btn btn-info" role="button">Add sheet</a>
+        <a href="{% url 'CreateSheet' file_id %}" class="btn btn-info" role="button">Add sheet</a>
 
     </div>
 </body>

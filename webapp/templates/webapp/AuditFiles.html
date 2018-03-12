@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+         {% load static %}
+
+     <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+    .wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RAMS</title>
+
+    <link rel="stylesheet" href="{%  static 'webapp/css/image-list-small.css' %}">
+
+
+</head>
+<body>
+    <h2>Files for audit : {{audit_id}}</h2>
+
+    <ul class="image-list-small">
+
+     {% for file in file_list %}
+
+        <li>
+
+            <a href="#" style=" background-image: url(' {% static 'webapp/images/file.png' %} '); "></a>
+
+            <div class="details">
+                <a href="#">{{file.file_name}}</a>
+                <p class="image-author"></p>
+                  <a href="{% url 'AuditSheets' file.f_id  %}" class="btn btn-info" role="button">open</a>
+            <a href="#" class="btn btn-info" role="button">edit</a>
+            </div>
+
+        </li>
+
+        <li>
+
+    {% endfor %}
+    </ul>
+
+    <div class ="wrapper">
+        <a href="{% url 'CreateFile' audit_id %}" class="btn btn-info" role="button">Add file</a>
+
+    </div>
+
+</body>
+
+</html>

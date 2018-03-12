@@ -60,11 +60,11 @@ def AuditList(request):
 	return render(request,'webapp/AuditList.html',context)
 
 
-def AuditSheets(request,audit_id):
+def AuditSheets(request,file_id):
 	context = {}
-	context['audit_id'] = audit_id
-	print(audit_id)
-	sheets = iof.read_sheet(audit_id)
+	context['file_id'] = file_id
+	print(file_id)
+	sheets = iof.read_sheet(file_id)
 	context['sheet_list'] = sheets
 	return render(request,'webapp/AuditSheets.html',context)
 
@@ -75,9 +75,14 @@ def EditAuditor(request,emp_id):
 	context['emp_id'] = emp_id
 	return render(request,'webapp/edit_auditor.html',context)
 
-def CreateSheet(request,audit_id):
+
+def EditAudit(request,audit_id):
+	context = iof.auditdetails(audit_id) 
+	return render(request,'webapp/EditAudit.html',context)
+
+def CreateSheet(request,file_id):
 	context = {}
-	context['audit_id'] = audit_id
+	context['file_id'] = file_id
 	return render(request,'webapp/CreateSheet.html',context)
 
 def questions(request,s_id):
@@ -93,6 +98,22 @@ def CreateQuestions(request,s_id):
 	context['s_id'] = s_id
 	return render(request,'webapp/CreateQuestions.html',context)
 
+def CreateFile(request,audit_id):
+	context = {}
+	context['audit_id'] = audit_id
+	return render(request,'webapp/CreateFile.html',context)
+
+def AuditFiles(request,audit_id):
+	context = {}
+	context['audit_id'] = audit_id
+	print(audit_id)
+	files = iof.read_file(audit_id)
+	context['file_list'] = files
+	return render(request,'webapp/AuditFiles.html',context)
+
+def AuditDashboard(request,audit_id):
+	context = iof.auditdetails(audit_id)
+	return render(request,'webapp/AuditDashboard.html',context)
 
 
 #######formshandles#############
@@ -149,13 +170,13 @@ def get_audit(request):
 			print(l)
 		return render(request,'webapp/success_audit.html',context)
 
-def get_sheet(request,audit_id):
+def get_sheet(request,file_id):
 	context = {}
 	if request.method == 'POST':
 		form  = request.POST
-		context['audit_id'] = audit_id
+		context['file_id'] = file_id
 		context['sheet_name'] = form['sheet_name']
-		context['s_id'] = audit_id+form['sheet_name']
+		context['s_id'] = file_id+form['sheet_name']
 		if context['s_id'] in (open('sheets.txt','r').read()):
 			context["message"] = 'Sheet name Already exists'
 			return render(request,'webapp/CreateSheet.html',context)
@@ -192,5 +213,46 @@ def get_questions(request,s_id):
 			print(l)
 			
 		return render(request,'webapp/success_question.html',context)
+
+def get_file(request,audit_id):
+	context = {}
+	if request.method == 'POST':
+		form  = request.POST
+		context['audit_id'] = audit_id
+		context['file_name'] = form['file_name']
+		context['f_id'] = audit_id+form['file_name']
+		if context['f_id'] in (open('files.txt','r').read()):
+			context["message"] = 'file name Already exists'
+			return render(request,'webapp/CreateFile.html',context)
+
+		with open('files.txt', 'r+') as f:
+			try:
+				l = json.load(f)
+			except:
+				l = []
+
+			l.append(context)
+			f.seek(0)
+			json.dump(l,f)
+			print(l)
+		return render(request,'webapp/success_file.html',context)
+
+def edit_audit(request,audit_id):
+	
+	if request.method == 'POST':
+		form = request.POST
+		context = form
+		with open('audit.txt', 'r+') as f:
+			l = json.load(f)
+			print(l)
+			for i in l:
+				if i['audit_id'] == audit_id:
+					i['audit_name'] = form['audit_name']
+					i['audit_type'] = form['audit_type']
+					i['description'] = form['description']
+			f.truncate()
+			f.seek(0)
+			json.dump(l,f)
+		return render(request,'webapp/success_audit.html',context)
 
 
