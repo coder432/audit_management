@@ -1,0 +1,1 @@
+web: gunicorn audit_management.wsgi --log-file -
