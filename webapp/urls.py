@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('login',views.login,name = 'login'),
@@ -27,4 +28,3 @@ urlpatterns = [
     path('edit_auditor/<slug:audit_id>',views.edit_audit,name = 'edit_audit'),
     path('AdminMenu',views.AdminMenu,name = 'AdminMenu')
     ]
-urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
