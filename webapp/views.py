@@ -133,6 +133,7 @@ def get_auditor(request):
 		if d['emp_id'] in (open('auditor.txt','r').read()):
 			context["message"] = 'INVALID EMPLOYEE ID'
 			return render(request,'webapp/register.html',context)
+		d['password'] = iof.password_generator()
 		print(d)
 
 		with open('auditor.txt', 'r+') as f:
@@ -180,6 +181,7 @@ def get_sheet(request,file_id):
 		context['file_id'] = file_id
 		context['sheet_name'] = form['sheet_name']
 		context['s_id'] = file_id+form['sheet_name']
+		context['status'] = 0
 		if context['s_id'] in (open('sheets.txt','r').read()):
 			context["message"] = 'Sheet name Already exists'
 			return render(request,'webapp/CreateSheet.html',context)
@@ -245,6 +247,7 @@ def edit_audit(request,audit_id):
 	if request.method == 'POST':
 		form = request.POST
 		context = form
+		print(form['username'])
 		with open('audit.txt', 'r+') as f:
 			l = json.load(f)
 			print(l)
@@ -257,5 +260,19 @@ def edit_audit(request,audit_id):
 			f.seek(0)
 			json.dump(l,f)
 		return render(request,'webapp/success_audit.html',context)
+
+def login_handle(request):
+	context = {}
+	if request.method == 'POST':
+		form = request.POST
+		print("form is",form)
+		print(form)
+		if form['username'] == 'admin' and form['password'] == 'admin':
+			return render(request,'webapp/AdminMenu.html')
+		else:
+			context['msg'] == 'invalid username or password'
+			return render(request,'webapp/login.html',context)
+
+
 
 

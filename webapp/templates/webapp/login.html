@@ -26,23 +26,25 @@
 			<div class="box-header">
 				<h2>Log In</h2>
 			</div>
-			<label for="username">Username</label>
+		<form action="{% url 'login_handle' %}" method = "post" id = "f1">
+			{% csrf_token %}
+			<label for="username">username</label>
 			<br/>
 			<input type="text" id="username">
 			<br/>
-			<label for="password">Password</label>
+			<label for="password">password</label>
 			<br/>
 			<input type="password" id="password">
 			<br/>
-			<a href = "{% url 'AdminMenu' %} "
-			<button type="submit">Sign In</button>
+				<button type="submit" value="Submit" id = "f1">LOG IN</button>
 			</a>
 			<br/>
+		</form>
 			
 		</div>
 	</div>
 </body>
-
+ <p>{{message}}</p>>
 <script>
 	$(document).ready(function () {
     	$('#logo').addClass('animated fadeInDown');

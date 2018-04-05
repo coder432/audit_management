@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rams</title>
+	<meta charset="UTF-8">
+
+   		<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+        <link type="text/css" href="https://code.cloudcms.com/alpaca/1.5.24/bootstrap/alpaca.min.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+        <script type="text/javascript" src="https://code.cloudcms.com/alpaca/1.5.24/bootstrap/alpaca.min.js"></script>
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel='stylesheet prefetch' href='https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css'>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css'>
+<link rel='stylesheet prefetch' href='https://code.cloudcms.com/alpaca/1.5.23/jquerymobile/alpaca.min.css'>
+
+</head>
+<body>
+
+
+		<div id="form"></div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#form").alpaca({
+                    "schema": {
+                        "title":"sheet id",
+                        "description":"Response for sheet ",
+                        "type":"object",
+                        "properties": {
+
+                        "auditee":{
+                            "type":"string",
+                            "title":"Add auditee name(optional)",
+                            "required":false
+                        },
+
+                        {% for question in question_list%}
+
+                        	{% if question.q_type == 'yes/no'%}
+
+	                            "{{question.q}}": {
+	                                "type":"string",
+	                                "title":"{{question.q}}",
+	                                "required":true,
+	                                "enum":["YES","NO"]
+	                            },
+
+	                        {% else %}
+
+		                        	{% if question.q_type == 'Descriptive' %}
+
+		                        	 "{{question.q}}": {
+		                                "type":"string",
+		                                "title":"{{question.q}}",
+		                                "required":true,
+										},
+
+
+			                        {% else %}
+			                        	"{{question.q}}": {
+			                                "type":"string",
+			                                "title":"{{question.q}}",
+			                                "required":true,
+			                                "enum":["0","1","2","3","4"]
+			                            },
+			                         {% endif %}
+			                        	
+
+
+	                        {% endif %}
+                         {% endfor %}
+
+                            "comment":{
+                            "type":"string",
+                            "title":"Add comment for the sheet(optional)",
+                            "required":false
+                        },                         
+                            
+                        }
+                       },
+
+
+
+                      "options": 
+                    {
+
+                      	"form":{
+                            "attributes":{
+                                "action":"http://httpbin.org/post",
+                                "method":"post"
+                            },
+                            "buttons":{
+                                "submit":{
+                                    "title": "Send Form Data",
+                                    "click": function() {
+                                        var val = this.getValue();
+                                        if (this.isValid(true)) {
+                                            alert("Valid value: " + JSON.stringify(val, null, "  "));
+                                            this.ajaxSubmit().done(function() {
+                                                alert("Posted!");
+                                            });
+                                        } else {
+                                            alert("Invalid value: " + JSON.stringify(val, null, "  "));
+                                        }
+                                    }
+                                }
+                            }
+                        },
+
+
+                      	"fields" : {
+			                      	 {% for question in question_list%}
+
+
+						                      	 	{% if question.q_type == 'yes/no'%}
+
+								                            "{{question.q}}": {
+								                                "type":"radio",
+									                            "removeDefaultNone":"true",
+									                        },
+
+				                        {% else %}
+
+					                        	{% if question.q_type == 'Descriptive' %}
+
+								                        	 "{{question.q}}": {
+								                              		 	"type": "textarea",
+										                                "rows": 5,
+										                                "cols": 40,
+																},
+
+
+						                        {% else %}
+									                        	"{{question.q}}": {
+									                        		 "type" : "radio",
+									                                 "optionLabels": ["poor", "average", "good","very good","excelent"],
+									                                 "removeDefaultNone":"true"
+									                            },
+						                         {% endif %}
+						                        	
+						                      {% endif %}
+			                      	 {% endfor %}
+
+                                    "comment":{
+                                        "type": "textarea",
+                                        "rows": 5,
+                                        "cols": 40,
+                                    }
+
+                      	}
+
+
+
+
+                      },
+                     
+
+                      "postRender": function(control) {
+                        control.childrenByPropertyId["name"].getFieldEl().css("background-color", "lightgreen");
+
+
+                    }
+                    
+                });
+            });
+        </script>
+
+
+</body>
+</html>
