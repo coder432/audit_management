@@ -33,9 +33,11 @@ def SubmitResponse(request,s_id):
 def details(request,emp_id):
 
 	context = {}
-	context['emp'] = emp_id
+	d = iof.read_ongoing_audit(emp_id)
+	context = d
+	context['emp_id'] = emp_id
 	return render(request,'tabapp/details.html',context)
-	#return HttpResponse("details of audit for "+ emp_id)
+	#return HttpResponse("details of audit for "+ str(context))
 
 
 def show_files(request,emp_id):

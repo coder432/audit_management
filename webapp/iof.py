@@ -119,6 +119,14 @@ def read_ongoing_files(emp_id):
 			return d[emp_id]['files']
 		except:
 			return 'null'
+def read_ongoing_audit(emp_id):
+	with open("data/ongoing/Auditors.txt",'r+') as f:
+		d = json.load(f)
+		try:
+			return auditdetails(d[emp_id]['a_id'])
+		except:
+			return 'null'
+
 
 def set_status(a_id):
 	l = []
