@@ -66,6 +66,7 @@
 
 
 		<div id="form"></div>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#form").alpaca({
@@ -128,7 +129,7 @@
 
                       	"form":{
                             "attributes":{
-                                "action":"http://httpbin.org/post",
+                                "action":" {% url 'get_response' f_id s_id %} ",
                                 "method":"post"
                             },
                             "buttons":{
@@ -205,6 +206,7 @@
                     
                 });
             });
+        var csrftoken = $.cookie('csrftoken');
         </script>
 
     </div>

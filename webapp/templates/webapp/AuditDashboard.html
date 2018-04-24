@@ -30,13 +30,18 @@
   <nav>
   <ul>
     <li><a class="social google" href="{% url 'AuditFiles' audit_id %}">View audit files</a></li>
-    <li><a class="social tumblr" href="{% url 'EditAudit' audit_id %}">Edit Audit</a></li>
-    <li><a class="social facebook" href="#">Add Auditors</a></li>
-    <li><a class="social github" href="#">Start Audit</a></li>
-    <li><a class="social scriptogram" href="#">Delete audit</a></li>
+    
+    {% if ongoing == 0 %}
+      <li><a class="social tumblr" href="{% url 'EditAudit' audit_id %}">Edit Audit</a></li>
+      <li><a class="social facebook" href="{% url 'AddAuditor' audit_id %}">Add Auditors</a></li>
+      <li><a class="social github" href="{% url 'auditstart' audit_id %}">Start Audit</a></li>
+      <li><a class="social scriptogram" href="#">Delete audit</a></li>
     <!--<li><a class="social twitter" href="#">blah</a></li>
     <li><a class="social instagram" href="#">Instagram</a></li> -->
-    <li><a class="social linkedin" href="#">Monitor Audit</a></li>
+    {% else %}
+    <li><a class="social linkedin" href="{% url 'monitor' audit_id %}">Monitor Audit</a></li>
+    <li><a class="social instagram" href="#">stop audit</a></li>
+    {% endif %}
   </ul>
 </nav>
   

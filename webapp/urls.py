@@ -24,5 +24,9 @@ urlpatterns = [
     path('AuditDashboard/<slug:audit_id>',views.AuditDashboard,name = 'AuditDashboard'),
     path('edit_auditor/<slug:audit_id>',views.edit_audit,name = 'edit_audit'),
     path('AdminMenu',views.AdminMenu,name = 'AdminMenu'),
-    path('login_handle',views.login_handle,name = 'login_handle')
+    path('login_handle',views.login_handle,name = 'login_handle'),
+    path('AddAuditor/<slug:audit_id>',views.AddAuditor,name = 'AddAuditor'),
+    path('get_auditor_audit/<slug:audit_id>',views.get_auditor_audit,name = 'get_auditor_audit'),
+    path('monitor/<slug:audit_id>',views.monitor,name ='monitor'),
+    path('auditstart/<slug:audit_id>',views.auditstart,name = 'auditstart')
     ]

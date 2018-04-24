@@ -73,13 +73,13 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
         <li>
 
-            <a href="{% url 'SubmitResponse' sheet.s_id %}" class="product-photo">
+            <a href="{% url 'SubmitResponse' file_id sheet.s_id %}" class="product-photo">
                 <img src="{%static 'tabapp/images/sheet.png'%}" height="105" alt="audit" />
             </a>
 
             <h2 align = "center"><a href="#"><b>{{sheet.sheet_name}}</b></a></h2>
             {% if sheet.status == 1 %}
-              <h2 align = "center">incomplete <img src="{% static 'tabapp/images/complete.png' %}" width="10%" height="10%" align="right"/></h2>
+              <h2 align = "center">complete <img src="{% static 'tabapp/images/complete.png' %}" width="10%" height="10%" align="right"/></h2>
 
             {% else %}
               <h2 align = "center">incomplete <img src="{% static 'tabapp/images/incomplete.png' %}" width="10%" height="10%" align="right"/></h2>

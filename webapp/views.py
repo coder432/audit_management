@@ -113,12 +113,34 @@ def AuditFiles(request,audit_id):
 
 def AuditDashboard(request,audit_id):
 	context = iof.auditdetails(audit_id)
+	l = iof.read_Audits()
+	if audit_id in l:
+		context['ongoing'] = 1
+	else:
+		context['ongoing'] = 0
 	return render(request,'webapp/AuditDashboard.html',context)
 
 
 def AdminMenu(request):
 	context = {}
 	return render(request,'webapp/AdminMenu.html',context)
+
+def AddAuditor(request,audit_id):
+	context ={}
+	context['audit_id'] = audit_id
+	l =[]
+	with open('auditor.txt','r') as f:
+		try:
+			l = json.load(f)
+		except:
+			 return HttpResponse("<h1>no Auditors registered yet</h1>")
+
+		context['auditor_list'] = l
+	print(context)
+
+	return render(request,'webapp/AddAuditor.html',context)
+
+
 #######formshandles#############
 def get_auditor(request):
 	d = {}
@@ -273,6 +295,27 @@ def login_handle(request):
 			context['msg'] == 'invalid username or password'
 			return render(request,'webapp/login.html',context)
 
+def get_auditor_audit(request,audit_id):
+	l = []
+	d = iof.read_Auditor_Audit()
+	context = {}
+	context['audit_id'] = audit_id
+	if request.method == 'POST':
+		form = request.POST
+		print(form.getlist('emp_id'))
+		d[audit_id] = form.getlist('emp_id')
+		print(d)
+		iof.write_Auditor_Audit(d)
+		
+		return render(request,'webapp/success_AuditorAudit.html',context)
 
+def monitor(request,audit_id):
+	context = {}
+	return render(request,'webapp/monitor.html',context)
+
+def auditstart(request,audit_id):
+	context = {}
+	iof.start_audit(audit_id)
+	return render(request,'webapp/auditstart.html',context)
 
 

@@ -5,6 +5,8 @@ from django.template import loader
 import json
 import webapp.iof as iof
 import json
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 
@@ -16,10 +18,11 @@ def login(request):
 	return render (request,'tabapp/login.html')
 
 
-def SubmitResponse(request,s_id):
+def SubmitResponse(request,file_id,s_id):
 
 	context = {}
 	context['s_id'] = s_id
+	context['f_id'] = file_id
 	question_list = iof.read_questions(s_id)
 	context['question_list'] = question_list
 
@@ -57,19 +60,21 @@ def show_files(request,emp_id):
 	
 
 	
+	else:
 
-	remaining = {}
-	for i in status:
-		remaining[i['f_id']] = i['incomplete']
-	for i in files:
-		k = []
-		k.append(i)
-		k.append(remaining[i])
-		l.append(k)
-	files = l
-	context['remaining'] = remaining 
-	context['files'] = files
-	print(files)
+		remaining = {}
+		for i in status:
+			remaining[i['f_id']] = i['incomplete']
+		for i in files:
+			print(i)
+			k = []
+			k.append(i)
+			k.append(remaining[i])
+			l.append(k)
+		files = l
+		context['remaining'] = remaining 
+		context['files'] = files
+		print(files)
 	return render(request,'tabapp/file1.html',context)
 
 def sheets(request,emp_id,file_id):
@@ -86,3 +91,29 @@ def sheets(request,emp_id,file_id):
 
 	#return HttpResponse("emp is "+emp_id+" file "+ file_id+" sheets "+str(sheets) )
 
+
+@csrf_exempt
+def get_response(request,f_id,s_id):
+	if request.method == 'POST':
+		form = request.POST
+		print(s_id)
+		question_list = iof.read_questions(s_id)
+		print(question_list)
+		for i in question_list:
+			i['response'] = form[i['q']]
+		print(question_list)
+		#iof.write_ongoing_sheets(question_list)
+		print('file_id is ',f_id)
+		sheets = iof.read_sheet(f_id)
+		for i in sheets :
+			if(i['s_id']) == s_id:
+				i['status'] = 1
+		print(sheets)
+		iof.write_sheet(sheets)
+		a_id = f_id[:4]
+		iof.set_status(a_id)
+
+
+
+	return HttpResponse("s_id"+s_id+"  "+str(form))
+	

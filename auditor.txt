@@ -1,1 +1,1 @@
-[{"email": "avinashmkamath@gmail.com", "f_name": "avinash", "l_name": "kamath", "emp_id": "EMP12345", "password": "wDq4NVXR"}]
+[{"email": "avinashmkamath@gmail.com", "f_name": "avinash", "l_name": "kamath", "emp_id": "EMP12345", "password": "wDq4NVXR"}, {"email": "jopbin@gmail.com", "f_name": "jobin", "l_name": "varghese", "emp_id": "JV123456", "password": "T4KhABKq"}]
