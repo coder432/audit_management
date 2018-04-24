@@ -49,7 +49,7 @@ def show_files(request,emp_id):
 	status  = iof.read_status()
 	context = {}
 	for i in status:
-		total = total + i['incomplete']
+		total = total + i['incomplete'] + i['complete']
 	context['total'] = total
 	context['emp_id'] = emp_id
 	files = iof.read_ongoing_files(emp_id)
@@ -74,6 +74,12 @@ def show_files(request,emp_id):
 		files = l
 		context['remaining'] = remaining 
 		context['files'] = files
+		print('remaining is'+str(remaining))
+		total_sheets = 0
+		for k,v in remaining.items():
+			total_sheets = total_sheets + v
+		context['total_sheets'] = total_sheets
+
 		print(files)
 	return render(request,'tabapp/file1.html',context)
 
@@ -96,15 +102,15 @@ def sheets(request,emp_id,file_id):
 def get_response(request,f_id,s_id):
 	if request.method == 'POST':
 		form = request.POST
-		print(s_id)
+		print(form)
 		question_list = iof.read_questions(s_id)
 		print(question_list)
 		for i in question_list:
 			i['response'] = form[i['q']]
 		print(question_list)
-		#iof.write_ongoing_sheets(question_list)
+		iof.write_ongoing_sheets(question_list)
 		print('file_id is ',f_id)
-		sheets = iof.read_sheet(f_id)
+		sheets = iof.read_all_sheets()
 		for i in sheets :
 			if(i['s_id']) == s_id:
 				i['status'] = 1
@@ -112,6 +118,11 @@ def get_response(request,f_id,s_id):
 		iof.write_sheet(sheets)
 		a_id = f_id[:4]
 		iof.set_status(a_id)
+		k = {}
+		k['comment'] = form['comment']
+		k['auditee'] = form['auditee']
+		print(k)
+		iof.write_comment(k,s_id)
 
 
 

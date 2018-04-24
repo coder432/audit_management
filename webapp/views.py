@@ -123,7 +123,7 @@ def AuditDashboard(request,audit_id):
 
 def AdminMenu(request):
 	context = {}
-	return render(request,'webapp/AdminMenu.html',context)
+	return render(request,'webapp/AdminMenu1.html',context)
 
 def AddAuditor(request,audit_id):
 	context ={}
@@ -310,12 +310,49 @@ def get_auditor_audit(request,audit_id):
 		return render(request,'webapp/success_AuditorAudit.html',context)
 
 def monitor(request,audit_id):
+	total = 0
+	remaining = 0
 	context = {}
+	status  = iof.read_status()
+	for i in status:
+		print(i)
+		total = total + i['incomplete']+i['complete']
+		remaining = remaining + i['incomplete']
+
+	print(total)
+	print(remaining)
+	context['complete'] = total - remaining
+	context['incomplete'] = remaining
+	d = iof.read_Auditor_Audit()
+	emp_list = d[audit_id]
+	print(str(emp_list))
+
+	graph = []
+	for i in emp_list:
+		 ele = {}
+		 ele['emp_id'] = i
+		 files = iof.read_ongoing_files(i)
+		 incomplete = 0
+		 complete = 0
+		 for j in status:
+		 	if j['f_id'] in files:
+		 		complete = complete + j['complete']
+		 		incomplete = incomplete + j['incomplete']
+		 ele['complete'] = complete
+		 ele['incomplete'] = incomplete
+		 graph.append(ele)
+		 print(ele)
+	context['graph'] = graph
+	
+
+
 	return render(request,'webapp/monitor.html',context)
 
 def auditstart(request,audit_id):
 	context = {}
 	iof.start_audit(audit_id)
-	return render(request,'webapp/auditstart.html',context)
+	
+	return AuditDashboard(request,audit_id)
+	
 
 

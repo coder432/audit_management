@@ -1,13 +1,41 @@
 import json
 import string
 import random
-
+import smtplib
 
 
 
 
 def password_generator(size=8, chars=string.ascii_letters + string.digits):
 	 return ''.join(random.choice(chars) for i in range(size))
+
+
+def send_email(email,emp_id,password):
+	TO = email
+	SUBJECT = 'Rajagiri Audit management'
+	TEXT = 'usrername:'+emp_id+'\n password:'+password
+
+	# Gmail Sign In
+	gmail_sender = 'rsetaudit@gmail.com'
+	gmail_passwd = 'Rset123!'
+
+	server = smtplib.SMTP('smtp.gmail.com', 587)
+	server.ehlo()
+	server.starttls()
+	server.login(gmail_sender, gmail_passwd)
+
+	BODY = '\r\n'.join(['To: %s' % TO,
+                    'From: %s' % gmail_sender,
+                    'Subject: %s' % SUBJECT,
+                    '', TEXT])
+
+	try:
+		server.sendmail(gmail_sender, [TO], BODY)
+		print ('email sent')
+	except:
+		print ('error sending mail')
+
+	server.quit()
 
 
 
@@ -177,6 +205,7 @@ def read_Audits():
 		return json.load(f)
 
 def start_audit(aid):
+
 	context = {}
 	audit = read_audit(aid)
 	set_status(aid)
@@ -192,6 +221,10 @@ def start_audit(aid):
 
 	d = read_Auditor_Audit()
 	auditors = d[aid]
+	for i in auditors:
+		det = read_auditor(i)
+		#send_email(det['email'],i,det['password'])
+
 	print('auditors assigned are ',auditors)
 
 	ld = read_file(aid)
@@ -235,6 +268,28 @@ def write_ongoing_sheets(d):
 		f.truncate()
 		f.seek(0)
 		json.dump(l,f)
+
+def write_comment(d,s_id):
+	with open("data/ongoing/comments.txt",'r+') as f:
+		try:
+			l = json.load(f)
+		except:
+			l ={}
+
+		l[s_id] = d
+		f.truncate()
+		f.seek(0)
+		json.dump(l,f)
+
+def read_all_sheets():
+	with open("sheets.txt",'r') as f:
+		return json.load(f)
+
+
+    
+
+
+
 
 
 
