@@ -8,5 +8,6 @@ urlpatterns = [
     path('details/<slug:emp_id>',views.details, name = 'details'),
     path('files/<slug:emp_id>/',views.show_files, name = 'show_files'),
     path('sheets/<slug:emp_id>/<slug:file_id>',views.sheets, name = 'sheets'),
-    path('get_response/<slug:f_id>/<slug:s_id>',views.get_response,name = 'get_response')
+    path('get_response/<slug:f_id>/<slug:s_id>',views.get_response,name = 'get_response'),
+    path('login_handle',views.login_handle,name = 'login_handle')
     ]

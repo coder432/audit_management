@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.template import loader
 import json
 import webapp.iof as iof
+import os
 #from .forms import RegisterForm
 
 def index(request):
@@ -11,7 +12,7 @@ def index(request):
 
 # Create your views here.
 
-def login(request):
+def loginw(request):
 	return render(request,'webapp/login.html')
 	#return HttpResponse("login.")
 
@@ -62,6 +63,7 @@ def AuditList(request):
 
 def AuditSheets(request,file_id):
 	context = {}
+	context['audit_id'] = file_id[:4]
 	context['file_id'] = file_id
 	print(file_id)
 	sheets = iof.read_sheet(file_id)
@@ -353,6 +355,21 @@ def auditstart(request,audit_id):
 	iof.start_audit(audit_id)
 	
 	return AuditDashboard(request,audit_id)
+
+def auditstop(request,audit_id):
+	
+	iof.stopaudit(audit_id)
+	return (AuditDashboard(request,audit_id))
+
+def download(request):
+	file_path = 'data/response.csv'
+	if os.path.exists(file_path):
+		with open(file_path, 'rb') as fh:
+			response = HttpResponse(fh.read(), content_type="text/csv")
+			response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+			return response
+	
+
 	
 
 

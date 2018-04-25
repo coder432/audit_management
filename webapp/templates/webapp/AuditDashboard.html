@@ -24,6 +24,7 @@
 
 	
   <p>
+    <h1>{{message}}<h1>
   <h1>AUDIT DASHBOARD</h1>
   <h1>{{audit_name}}</h1>
   </p>
@@ -41,7 +42,7 @@
     <li><a class="social instagram" href="#">Instagram</a></li> -->
     {% else %}
     <li><a class="social linkedin" href="{% url 'monitor' audit_id %}">Monitor Audit</a></li>
-    <li><a class="social instagram" href="#">stop audit</a></li>
+    <li><a class="social instagram" href="{% url 'auditstop' audit_id %}">stop audit</a></li>
     {% endif %}
   </ul>
 </nav>

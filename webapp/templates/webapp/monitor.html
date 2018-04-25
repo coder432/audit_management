@@ -126,6 +126,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</h2>
 		    </div>
 		<!--//banner-->
+		{% if incomplete == 0 %}
+			 <div class="banner">
+		    	<h2>
+			<a href="{% url 'download' %}">Download Answers</a>
+			
+				</h2>
+		    </div>
+		 {% endif %}
 
 	<div class="graph">
 <div class="graph-grid">

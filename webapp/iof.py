@@ -2,7 +2,7 @@ import json
 import string
 import random
 import smtplib
-
+import csv
 
 
 
@@ -188,8 +188,12 @@ def set_status(a_id):
 def read_status():
 	l = []
 	with open ('data/ongoing/status.txt','r+') as f:
-		l = json.load(f)
+		try:
+			l = json.load(f)
+		except:
+			l =[]
 		return l
+
 def read_Auditor_Audit():
 	with open("data/Auditor_Audit.txt","r+") as f:
 		return json.load(f)
@@ -212,7 +216,11 @@ def start_audit(aid):
 	print('status is ',read_status())
 
 	with open("data/Audits.txt","r+") as f:
-		l = json.load(f)
+		try:
+			l = json.load(f)
+		except:
+			l = []
+
 		l.append(aid)
 		f.truncate()
 		f.seek(0)
@@ -263,7 +271,11 @@ def start_audit(aid):
 
 def write_ongoing_sheets(d):
 	with open("data/ongoing/onsheets.txt",'r+') as f:
-		l = json.load(f)
+		try:
+			l = json.load(f)
+		except:
+			l = []
+
 		l.extend(d)
 		f.truncate()
 		f.seek(0)
@@ -284,6 +296,88 @@ def write_comment(d,s_id):
 def read_all_sheets():
 	with open("sheets.txt",'r') as f:
 		return json.load(f)
+
+def stopaudit(audit_id):
+
+	with open("sheets.txt",'r+') as f:
+		l = json.load(f)
+		for i in l:
+			i['status'] == 0
+	write_sheet(l)
+
+
+	with open("data/ongoing/comments.txt",'r+') as f:
+		l = {}
+		f.truncate()
+		f.seek(0)
+		json.dump(l,f)
+
+	with open("data/ongoing/onsheets.txt",'r+') as f:
+		l = []
+		f.truncate()
+		f.seek(0)
+		json.dump(l,f)
+
+	with open ('data/ongoing/status.txt','r+') as f:
+		l = []
+		f.truncate()
+		f.seek(0)
+		json.dump(l,f)
+
+	with open("data/Audits.txt","r+") as f:
+		l = []
+		f.truncate()
+		f.seek(0)
+		json.dump(l,f)
+
+	with open("data/ongoing/Auditors.txt","r+") as f:
+		l = {}
+		f.truncate()
+		f.seek(0)
+		json.dump(l,f)
+
+def responsecsv(audit_id):
+	with open('data/response.csv', 'w+', newline='') as csvfile:
+		writer = csv.writer(csvfile, delimiter=' ',quotechar=',',quoting=csv.QUOTE_ALL)
+		writer.writerow([audit_id])
+		d = read_Auditor_Audit()
+		auditors = d[audit_id]
+		for i in auditors:
+			writer.writerow([i])
+			files = read_ongoing_files(i)
+			for j in files:
+				writer.writerow([j])
+				sheets = read_sheet(j)
+				for k in sheets:
+					writer.writerow([k['s_id'],k['sheet_name']])
+					comments = json.load(open('data/ongoing/comments.txt'))
+					try:
+						d = comments[k['s_id']]
+						row = ['comment',d['comment']]
+						writer.writerow(row)
+						row = ['auditee',d['auditee']]
+						writer.writerow(row)
+					except:
+						pass
+
+					with open("data/ongoing/onsheets.txt","r") as f:
+						l = json.load(f)
+						for m in l:
+							if m['s_id'] == k['s_id']:
+								row = [m['q'],m['q_type'],m['response']]
+								print("row is "+str(row))
+								writer.writerow(row)
+
+
+
+
+			
+
+
+
+
+
+
 
 
     

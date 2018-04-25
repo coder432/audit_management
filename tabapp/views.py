@@ -123,8 +123,20 @@ def get_response(request,f_id,s_id):
 		k['auditee'] = form['auditee']
 		print(k)
 		iof.write_comment(k,s_id)
-
-
-
 	return HttpResponse("s_id"+s_id+"  "+str(form))
+
+
+@csrf_exempt
+def login_handle(request):
+	context={}
+	context['message'] = 'invalid emloyee id or password'
+	form = request.POST
+	emp_id = form['emp_id']
+	password = form['password'] 
+	if iof.read_auditor(emp_id):
+		auditor = iof.read_auditor(emp_id)
+		return details(request,emp_id)
+
+	return render (request,'tabapp/login.html',context)
+
 	

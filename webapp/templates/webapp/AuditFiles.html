@@ -118,22 +118,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
+
+                  <li>
+                        <a href="{% url 'AdminMenu' %}" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Home</span> </a>
+                    </li>
+        
         
                      <li>
-                        <a href="index.html" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Home</span> </a>
+                        <a href="{% url 'AuditDashboard' audit_id %}" class=" hvr-bounce-to-right"><i class="fa fa-dashboard nav_icon "></i><span class="nav-label">Dashboard</span> </a>
                     </li>
                    
                     <li>
-                        <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Rset</span></a>
+                        <a href="https://www.rajagiritech.ac.in/Home/Index.asp" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Rset</span></a>
                        
                     </li>
-           <li>
-                        <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">About us</span> </a>
-                    </li>
-                    
+         
                     
                      <li>
-                        <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i> <span class="nav-label">Logout</span></a>
+                        <a href="{% url 'Login'%}" class=" hvr-bounce-to-right"><i class="fa fa-desktop nav_icon"></i> <span class="nav-label">Logout</span></a>
                        
                     </li>
                     
