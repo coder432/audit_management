@@ -49,10 +49,9 @@
     <i class="fa fa-remove"></i>
   </a>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#">Home</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="{% url 'login' %}">Logout</a>
+
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -138,7 +137,7 @@
                                     "click": function() {
                                         var val = this.getValue();
                                         if (this.isValid(true)) {
-                                            alert("Valid value: " + JSON.stringify(val, null, "  "));
+                                            alert("sheet posted");
                                             this.ajaxSubmit().done(function() {
                                                 alert("Posted!");
                                             });
